@@ -49,9 +49,8 @@ function peak = findpeak (data, idx, r)
   % On fait alors la moyenne sur toute la sphere des points à l'intérieur.
   % Pour ça, on filtre sur data les vecteurs concernés par la sphere, puis on
   % en calcule le vecteur moyen.
-  n_sphere = sum (sphere);
-  data_sphere = data .* repmat (sphere, d, 1);
-  moy = sum (data_sphere')' / n_sphere;
+  data_sphere = data (:, sphere == 1);
+  moy = mean (data_sphere, 2);
 
   % Deux cas se distinguent : Si la distance entre [p] et [moy] est inférieure
   % à [eps = .01], on s'arrête ici. Sinon, on continue en partant du vecteur
