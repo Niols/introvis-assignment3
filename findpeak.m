@@ -12,6 +12,8 @@
 
 % idx: 1 x 1
 % L'indice du point pour lequel on veut trouver le pic voisin.
+% Pour les besoins du problème, idx peut aussi accepter d x 1, auquel cas il est
+% le point lui même. Mais ce n'est pas utilisable depuis l'extérieur
 
 % r: 1 x 1
 % Le rayon de la sphere.
@@ -25,9 +27,13 @@ function peak = findpeak (data, idx, r)
   % le nombre de points.
   [d n] = size (data);
 
-  % On récupère le point concerné.
-  % C'est le centre de la sphère.
-  p = data (:, idx);
+  % On récupère le point concerné. On teste pour ça si c'est un point, ou juste
+  % un id.
+  if (d == size (idx, 1))
+    p = idx;
+  else
+    p = data (:, idx);
+  endif
 
   % On écrit la condition d'appartenance à la sphere
   % Il s'agit de dire que la distance entre [p] et le point est inférieur à [r].
@@ -47,18 +53,13 @@ function peak = findpeak (data, idx, r)
   data_sphere = data .* repmat (sphere, d, 1);
   moy = sum (data_sphere')' / n_sphere;
 
-  % On cherche le vecteur le plus proche du vecteur moyen trouvé.
-  rel = data - repmat (moy, 1, n);
-  [_, i] = min (sqrt (sum (rel .^ 2)));
-  v = data (:, i);
-
-  % Deux cas se distinguent : Si la distance entre [p] et [v], le vecteur qu'on
-  % vient de trouver est inférieure à [eps = .1], on s'arrête ici. Sinon, on
-  % continue en partant du vecteur [v] qu'on vient de trouver.
-  if (norm (v-p) < .1)
-    peak = v;
+  % Deux cas se distinguent : Si la distance entre [p] et [moy] est inférieure
+  % à [eps = .01], on s'arrête ici. Sinon, on continue en partant du vecteur
+  % [moy] qu'on vient de trouver.
+  if (norm (moy-p) < .01)
+    peak = moy;
   else
-    peak = findpeak (data, i, r);
+    peak = findpeak (data, moy, r);
   endif
 
 endfunction
