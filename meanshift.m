@@ -48,8 +48,7 @@ function [labels, peaks] = meanshift (data, r)
     else
 	
       % On cherche le pic le plus proche dans les peaks déjà existants :
-      rel = peaks - repmat (peak, 1, k);
-      [_, i] = min (sqrt (sum (rel .^ 2)));
+      [_, i] = min (ml_sqrDist (peaks, peak));
       v = peaks (:, i);
       
       % S'il est proche, on garde celui là. Sinon, on ajoute le nouveau.

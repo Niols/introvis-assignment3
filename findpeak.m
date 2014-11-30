@@ -39,8 +39,7 @@ function peak = findpeak (data, idx, r)
   % Il s'agit de dire que la distance entre [p] et le point est inférieur à [r].
   % On récupère ici une matrice [sphere: 1 x n] indictrice de l'appartenance à
   % la sphere de rayon [r] et de centre [p].
-  rel = data - repmat (p, 1, n);
-  sphere = sqrt (sum (rel .^ 2)) < r;
+  sphere = ml_sqrDist (data, p) < r * r;
 
   % NOTE À MOI-MÊME: S'agit-il de faire la moyenne des vecteurs ou des indices ?
   % La moyenne des indices me semble stupide, il n'ont pas de sens physique.
