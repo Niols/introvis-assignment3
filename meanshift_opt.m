@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
 %                           Programming assignment 3                           %
-%                                 meanshift.m                                  %
+%                               meanshift_opt.m                                %
 %                                                                              %
 %                             by Nicolas Jeannerod                             %
 %                                                                              %
@@ -19,7 +19,7 @@
 % peaks: d x k
 % Les k différents pics trouvés. Ce sont des vecteurs de taille d.
 
-function [labels, peaks] = meanshift (data, r)
+function [labels, peaks] = meanshift_opt (data, r, c)
 
   % On récupère les dimensions du problème.
   [d n] = size (data);
@@ -38,7 +38,7 @@ function [labels, peaks] = meanshift (data, r)
     if (labels (idx) == 0)
 
       % On trouve le pic correspondant à idx.
-      [peak, cpts] = findpeak (data, idx, r);
+      [peak, cpts] = findpeak_opt (data, idx, r, c);
 
       % Il y a un petit cas particulier quand c'est le premier pic. On ne
       % recherche pas dans les pics déjà existants dans ce cas, et on enregistre

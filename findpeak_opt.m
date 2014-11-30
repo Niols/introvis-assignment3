@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
 %                           Programming assignment 3                           %
-%                                  findpeak.m                                  %
+%                                findpeak_opt.m                                %
 %                                                                              %
 %                             by Nicolas Jeannerod                             %
 %                                                                              %
@@ -10,13 +10,17 @@
 % data: d x n
 % n vecteurs colonne de dimension d, les points sur lesquels ont cherche.
 
-% idx: 1 x 1
-% L'indice du point pour lequel on veut trouver le pic voisin.
-% Pour les besoins du problème, idx peut aussi accepter d x 1, auquel cas il est
-% le point lui même. Mais ce n'est pas utilisable depuis l'extérieur
+% idx
+% L'indice du point pour lequel on veut trouver le pic voisin. Pour des raisons
+% de simplicité du code, un argument de taille d x 1 peut être accepté, auquel
+% cas, c'est le point lui même, et il remplace data (:, idx).
 
-% r: 1 x 1
+% r
 % Le rayon de la sphere.
+
+% c
+% Le paramètre de boost de la vitesse de l'algorithme, qui ajoute tous les
+% points à moins de r/c d'une moyenne à cpts.
 
 % peak: d x 1
 % Le pic trouvé.
@@ -24,14 +28,14 @@
 % cpts: 1 x n
 % Les points à lier directement au pic
 
-function [peak, cpts] = findpeak (data, idx, r)
+function [peak, cpts] = findpeak_opt (data, idx, r, c)
 
   % On récupère les dimensions du problème : [d] la dimension de l'espace et [n]
   % le nombre de points.
   [d n] = size (data);
 
   % On récupère le point concerné. On teste pour ça si c'est un point, ou juste
-  % un id.
+  % un id. Si c'est un id, il faut aussi initialiser cpts à un vecteur de 0.
   if (d == size (idx, 1))
     p = idx;
   else
@@ -44,10 +48,6 @@ function [peak, cpts] = findpeak (data, idx, r)
   % la sphere de rayon [r] et de centre [p].
   sphere = ml_sqrDist (data, p) < r * r;
 
-  % NOTE À MOI-MÊME: S'agit-il de faire la moyenne des vecteurs ou des indices ?
-  % La moyenne des indices me semble stupide, il n'ont pas de sens physique.
-  % Mais je ne peux pas m'empêcher de me poser la question.
-
   % On fait alors la moyenne sur toute la sphere des points à l'intérieur.
   % Pour ça, on filtre sur data les vecteurs concernés par la sphere, puis on
   % en calcule le vecteur moyen.
@@ -59,12 +59,12 @@ function [peak, cpts] = findpeak (data, idx, r)
   % [moy] qu'on vient de trouver.
   if (norm (moy-p) < .01)
     peak = moy;
+    % On ajoute tous les points à distance < r du pic trouvé. (vecteur *ligne*)
+    cpts = (ml_sqrDist (data, moy) < r * r)';
   else
-    peak = findpeak (data, moy, r);
+    [peak, cpts] = findpeak_opt (data, moy, r, c);
+    % On ajoute tous les points à distance < r / c de la moyenne trouvée.
+    cpts = (cpts + (ml_sqrDist (data, moy) < ((r*r)/(c*c)))') > 0;
   endif
-
-  % On ajoute tous les points à distance < r de la moyenne trouvée.
-  % On en fait un vecteur *ligne*.
-  cpts = (ml_sqrDist (data, moy) < r * r)';
 
 endfunction
