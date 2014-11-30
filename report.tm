@@ -35,18 +35,12 @@
     endfor
   </verbatim-code>
 
-  Je donne un centième du temps obtenu en lançant <verbatim|time octave -q
-  benchmark.m>.
+  Je le temps en secondes obtenu en lançant <verbatim|time octave -q
+  benchmark.m>. Ceci va exécuter <verbatim|100> fois l'algorithme
+  <verbatim|meanshift>, et renvoyer le temps que cela a pris.
 
   <tabular*|<tformat|<table|<row|<cell|Optimisations>|<cell|Mesure
-  1>|<cell|Mesure 2>|<cell|Mesure 3>>|<row|<cell|/>|<cell|18.9817>|<cell|18.8935>|<cell|17.495>>>>>
-
-  \;
-
-  <tabular*|<tformat|<table|<row|<cell|Partie>|<cell|2>|<cell|2.1>|<cell|2.2>>|<row|<cell|Temps
-  (s)>|<cell|18.9817>|<cell|>|<cell|>>>>>
-
-  \;
+  1>|<cell|Mesure 2>|<cell|Mesure 3>>|<row|<cell|/>|<cell|3m24.752s>|<cell|3m27.032s>|<cell|3m26.376s>>|<row|<cell|Mean>|<cell|3m26.264s>|<cell|3m24.720s>|<cell|3m25.040s>>|<row|<cell|ml_sqrDist>|<cell|1m58.932s>|<cell|1m58.464s>|<cell|1m58.404s>>>>>
 
   \;
 </body>
