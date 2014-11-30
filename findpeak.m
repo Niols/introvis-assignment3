@@ -21,7 +21,10 @@
 % peak: d x 1
 % Le pic trouvé.
 
-function peak = findpeak (data, idx, r)
+% cpts: 1 x n
+% Les points à lier directement au pic
+
+function [peak, cpts] = findpeak (data, idx, r)
 
   % On récupère les dimensions du problème : [d] la dimension de l'espace et [n]
   % le nombre de points.
@@ -59,5 +62,9 @@ function peak = findpeak (data, idx, r)
   else
     peak = findpeak (data, moy, r);
   endif
+
+  % On ajoute tous les points à distance < r de la moyenne trouvée.
+  % On en fait un vecteur *ligne*.
+  cpts = (ml_sqrDist (data, moy) < r * r)';
 
 endfunction
