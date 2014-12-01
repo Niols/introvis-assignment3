@@ -44,7 +44,15 @@
   bassin optimization>|<cell|0m12.068s>|<cell|0m12.036s>|<cell|0m12.036s>>|<row|<cell|Second
   bassin optimization, c = 4>|<cell|1m1.224s>|<cell|1m0.440s>|<cell|0m59.892s>>|<row|<cell|Second
   bassin optimization, c = 2>|<cell|0m33.508s>|<cell|0m32.472s>|<cell|0m33.372s<em|>>>|<row|<cell|Second
-  bassin optimization, c = 1>|<cell|>|<cell|>|<cell|>>>>>
+  bassin optimization, c = 1>|<cell|.>|<cell|.>|<cell|.>>>>>
+
+  \;
+
+  \;
+
+  Pour <verbatim|testdata1.mat>, le bon <verbatim|r> semble être <math|3>.
+
+  \;
 
   \;
 </body>
