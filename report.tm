@@ -90,25 +90,36 @@
   fonction <verbatim|segment_meanshift> n'étant qu'une légère surcouche à
   <verbatim|meanshift>.
 
-  <em|>
+  Pour les résultats, tous se trouvent dans le dossier <verbatim|results/>.
+  Pour les <verbatim|testdata*.mat>, le <verbatim|r> choisi est <verbatim|3>
+  (et <verbatim|c> est égal à <verbatim|4> comme demandé), même si ce n'est
+  pas forcément très satisfaisant pour le troisième jeu de données.
 
-  \;
-
-  Pour <verbatim|testdata*.mat>, le bon <verbatim|r> semble être <math|3>.
-
-  \;
-
-  \;
-
-  Benchmarks de <verbatim|segment_meanshift>
+  Les images produites pas <verbatim|segment_meanshift> se trouvent dans
+  <verbatim|results/images/>. Elles sont toutes nommées de la même façon :
+  <verbatim|\<less\>nom-original\<gtr\>_r\<less\>r\<gtr\>_c\<less\>c\<gtr\>.png>
+  où <verbatim|\<less\>nom-original\<gtr\>> est le nom de l'image avant
+  traitement (<verbatim|hat>, <verbatim|man>, <verbatim|sheep>,
+  <verbatim|star>), <verbatim|\<less\>r\<gtr\>> est la valeur de
+  <verbatim|r>, <verbatim|\<less\>c\<gtr\>> est la valeur de <verbatim|c>.
 
   <big-table|<tabular*|<tformat|<table|<row|<cell|>|<cell|r>|<cell|5>|<cell|10>|<cell|20>>|<row|<cell|c>|<cell|>|<cell|>|<cell|>|<cell|>>|<row|<cell|1>|<cell|>|<cell|14.180>|<cell|1.788>|<cell|0.612>>|<row|<cell|2>|<cell|>|<cell|102.296>|<cell|18.660>|<cell|3.312>>|<row|<cell|4>|<cell|>|<cell|457.280>|<cell|101.840>|<cell|62.724>>>>>|Temps
   d'exécution de <verbatim|segment_meanshift> sur <verbatim|hat.png>>
 
-  \;
+  J'ai fait des mesures du temps passé à faire ce calcul en fonction de
+  <verbatim|r> et <verbatim|c>. J'affiche ici les résultats pour
+  <verbatim|hat.png> et <verbatim|man.png>. On constate que l'action des
+  paramètres joue vraiment violemment sur le temps de calcul. Cependant, la
+  qualité s'en ressent beaucoup. Pour <verbatim|sheep> par exemple, une
+  grande valeur de <verbatim|r> ne laisse même plus apparaitre les moutons
+  sur l'image.
 
   <big-table|<tabular*|<tformat|<table|<row|<cell|>|<cell|r>|<cell|5>|<cell|10>|<cell|20>>|<row|<cell|c>|<cell|>|<cell|>|<cell|>|<cell|>>|<row|<cell|1>|<cell|>|<cell|30.832>|<cell|4.636>|<cell|0.716>>|<row|<cell|2>|<cell|>|<cell|151.928>|<cell|33.068>|<cell|4.348>>|<row|<cell|4>|<cell|>|<cell|477.420>|<cell|151.712>|<cell|19.592>>>>>|Temps
   d'exécution de <verbatim|segment_meanshift> sur <verbatim|man.png>>
+
+  \;
+
+  Voilà. C'était bien, mais c'est fini.
 </body>
 
 <\initial>
